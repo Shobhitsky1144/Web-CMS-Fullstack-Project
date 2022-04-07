@@ -82,7 +82,7 @@ const AdminCaseStudy = () => {
             type="text"
             class="form-control"
             id="exampleFormControlInput1"
-            placeholder="Portfolio Title"
+            placeholder="Case Study Title"
             value={heading}
             name="heading"
             onChange={(e) => setHeading(e.target.value)}
@@ -106,7 +106,7 @@ const AdminCaseStudy = () => {
             class="form-control"
             id="exampleFormControlInput1"
             name="technologies"
-            placeholder="Portfolio Technologies"
+            placeholder="Case study Technologies"
             value={technologies}
             onChange={(e) => setTechnologies(e.target.value)}
           />

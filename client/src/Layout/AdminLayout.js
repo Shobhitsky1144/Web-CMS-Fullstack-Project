@@ -10,7 +10,7 @@ export const AdminLayout = (prop) => {
         className="d-flex justify-content-center "
         style={{ marginTop: "4rem" }}
       >
-        {prop.children}
+        {/* {prop.children} */}
       </div>
     </>
   );

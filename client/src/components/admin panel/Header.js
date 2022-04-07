@@ -49,25 +49,31 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const [clickActive, setClickActive] = useState(false);
-  //  const [click, setClick] = useState(true);
+  const [clickActive, setClickActive] = useState(true);
+  const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const drawerItems = (
     <>
       <div className={classes.toolbar} />
       <Divider />
       <List disablePadding className={classes.drawer}>
-        <ListItem button>
-          <ListItemText
-            primary="Add Portfolio"
-            onClick={() => setClickActive(true)}
-          />
+        <ListItem
+          button
+          onClick={() => {
+            setClick(false);
+            setClickActive(true);
+          }}
+        >
+          <ListItemText primary="Add Portfolio" />
         </ListItem>
-        <ListItem button>
-          <ListItemText
-            primary="Add Case Study"
-            onClick={() => setClickActive(false)}
-          />
+        <ListItem
+          button
+          onClick={() => {
+            setClick(true);
+            setClickActive(false);
+          }}
+        >
+          <ListItemText primary="Add Case Study" />
         </ListItem>
       </List>
     </>
@@ -115,7 +121,7 @@ const Header = () => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {/* <Typography variant="h2">New ReactJs Features!</Typography> */}
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle1" className="mt-3">
           {clickActive === true ? <AdminPortfolio /> : <AdminCaseStudy />}
         </Typography>
       </main>
