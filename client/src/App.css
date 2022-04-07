@@ -1,0 +1,31 @@
+.buy-now-btn {
+  display: none;
+}
+.MuiDrawer-paperAnchorLeft {
+  top: 59px !important;
+}
+.MuiAppBar-colorPrimary {
+  background-color: #1abc9c !important;
+  top: 0px !important;
+  z-index: 9999 !important;
+  position: fixed !important;
+}
+.MuiDrawer-paperAnchorLeft {
+  background-color: #f3f3f3 !important;
+}
+.MuiListItemText-primary {
+  color: #1abc9c !important;
+  z-index: 9999 !important;
+}
+.MuiList-padding {
+  padding-top: 28px !important;
+}
+input.form-control:focus,
+textarea.form-control:focus {
+  /* border: none !important;s */
+  outline: none !important;
+  box-shadow: none !important;
+}
+[role="navigation"] {
+  overflow: auto !important;
+}
