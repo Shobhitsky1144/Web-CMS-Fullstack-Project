@@ -8,7 +8,7 @@ const AdminCaseStudy = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   // const [verticals, setVerticals] = useState(["ff", "kk"]);
-  const [technologies, setTechnologies] = useState(["ff", "kk"]);
+  const [technologies, setTechnologies] = useState("");
   // const [expertise, setExpertise] = useState(["ff", "ll"]);
 
   const validateForm = (e) => {
@@ -26,10 +26,10 @@ const AdminCaseStudy = () => {
   const handleSubmit = async () => {
     // try {
     var data = new FormData();
-
+    const tech = JSON.stringify(technologies.split(","));
     data.append("heading", heading);
     data.append("description", description);
-    data.append("technologies", technologies);
+    data.append("technologies", tech);
     data.append("image", image, image.name);
     const res = await Axios.post(
       `${API_BASE_URL}/addCaseStudy`,
@@ -107,8 +107,8 @@ const AdminCaseStudy = () => {
             id="exampleFormControlInput1"
             name="technologies"
             placeholder="Portfolio Technologies"
-            // value={technologies}
-            // onChange={(e) => setTechnologies(e.target.value)}
+            value={technologies}
+            onChange={(e) => setTechnologies(e.target.value)}
           />
         </div>
 

@@ -7,9 +7,9 @@ const AdminPortfolio = () => {
   const [heading, setHeading] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [verticals, setVerticals] = useState(["ff", "kk"]);
-  const [technologies, setTechnologies] = useState(["ff", "kk"]);
-  const [expertise, setExpertise] = useState(["ff", "ll"]);
+  const [verticals, setVerticals] = useState("");
+  const [technologies, setTechnologies] = useState("");
+  const [expertise, setExpertise] = useState("");
 
   const validateForm = (e) => {
     e.preventDefault();
@@ -33,12 +33,14 @@ const AdminPortfolio = () => {
   const handleSubmit = async () => {
     // try {
     var data = new FormData();
-
+    const tech = JSON.stringify(technologies.split(","));
+    const vert = JSON.stringify(verticals.split(","));
+    const exp = JSON.stringify(expertise.split(","));
     data.append("heading", heading);
     data.append("description", description);
-    data.append("technologies", technologies);
-    data.append("verticals", verticals);
-    data.append("expertise", expertise);
+    data.append("technologies", tech);
+    data.append("verticals", vert);
+    data.append("expertise", exp);
     data.append("image", image, image.name);
     const res = await Axios.post(
       `${API_BASE_URL}/addPortfolio`,
@@ -119,8 +121,8 @@ const AdminPortfolio = () => {
             id="exampleFormControlInput1"
             placeholder="Portfolio Expertise"
             name="expertise"
-            // value={expertise}
-            // onChange={(e) => setExpertise(e.target.value)}
+            value={expertise}
+            onChange={(e) => setExpertise(e.target.value)}
           />
         </div>
 
@@ -132,8 +134,8 @@ const AdminPortfolio = () => {
             id="exampleFormControlInput1"
             placeholder="Portfolio Verticals"
             name="verticals"
-            // value={verticals}
-            // onChange={(e) => setVerticals(e.target.value)}
+            value={verticals}
+            onChange={(e) => setVerticals(e.target.value)}
           />
         </div>
 
@@ -145,8 +147,8 @@ const AdminPortfolio = () => {
             id="exampleFormControlInput1"
             name="technologies"
             placeholder="Portfolio Technologies"
-            // value={technologies}
-            // onChange={(e) => setTechnologies(e.target.value)}
+            value={technologies}
+            onChange={(e) => setTechnologies(e.target.value)}
           />
         </div>
 

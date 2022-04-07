@@ -1,59 +1,125 @@
 import React, { useState } from "react";
 import {
-  Drawer as MUIDrawer,
-  ListItem,
-  List,
-  ListItemIcon,
-  Divider,
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
   IconButton,
+  Drawer,
+  List,
+  ListItem,
   ListItemText,
+  Hidden,
+  Divider,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import { useNavigate } from "react-router-dom";
-import ReorderIcon from "@material-ui/icons/Reorder";
-import TopBar from "./TopBar";
-// import { withRouter } from "react-router-dom";
+import MenuIcon from "@material-ui/icons/Menu";
+import AdminPortfolio from "./AdminPortfolio";
+import AdminCaseStudy from "./AdminCaseStudy";
 
-const useStyles = makeStyles({
-  drawer: {
-    width: "190px",
+const drawerWidth = 250;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.up("sm")]: { paddingLeft: drawerWidth },
   },
-});
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  title: {
+    marginRight: "auto",
+  },
+  drawer: {
+    width: drawerWidth,
+  },
 
-const Header = (props) => {
-  const navigate = useNavigate();
+  content: {
+    padding: theme.spacing(0, 3),
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  appBar: {
+    [theme.breakpoints.up("sm")]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+  },
+}));
+
+const Header = () => {
   const classes = useStyles();
-  const itemsList = [
-    {
-      text: "Portfolio",
-      icon: <InboxIcon />,
-      onClick: () => navigate("/admin-portfolio"),
-    },
-    {
-      text: "Case Study",
-      icon: <MailIcon />,
-      onClick: () => navigate("/admin-casestudy"),
-    },
-  ];
-  return (
+  const [clickActive, setClickActive] = useState(false);
+  //  const [click, setClick] = useState(true);
+  const [open, setOpen] = useState(false);
+  const drawerItems = (
     <>
-      <TopBar />
-      <MUIDrawer variant="permanent" className={classes.drawer}>
-        <List>
-          {itemsList.map((item, index) => {
-            const { text, icon, onClick } = item;
-            return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText primary={text} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </MUIDrawer>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List disablePadding className={classes.drawer}>
+        <ListItem button>
+          <ListItemText
+            primary="Add Portfolio"
+            onClick={() => setClickActive(true)}
+          />
+        </ListItem>
+        <ListItem button>
+          <ListItemText
+            primary="Add Case Study"
+            onClick={() => setClickActive(false)}
+          />
+        </ListItem>
+      </List>
     </>
+  );
+  return (
+    <div className={classes.root}>
+      {/* Drawer for small devices */}
+      <Hidden smUp implementation="css">
+        <Drawer open={open} onClose={() => setOpen(false)}>
+          {drawerItems}
+        </Drawer>
+      </Hidden>
+      {/* Drawer for large devices */}
+      <Hidden xsDown implementation="css">
+        <Drawer open={open} variant="permanent" onClose={() => setOpen(false)}>
+          {drawerItems}
+        </Drawer>
+      </Hidden>
+
+      <AppBar
+        position="fixed"
+        color="secondary"
+        className={classes.appBar}
+        style={{ background: "#1abc9c" }}
+      >
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            onClick={() => setOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            style={{ color: "white" }}
+          >
+            Nsspl Admin
+          </Typography>
+          {/* <Button color="inherit">Login</Button> */}
+        </Toolbar>
+      </AppBar>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {/* <Typography variant="h2">New ReactJs Features!</Typography> */}
+        <Typography variant="subtitle1">
+          {clickActive === true ? <AdminPortfolio /> : <AdminCaseStudy />}
+        </Typography>
+      </main>
+    </div>
   );
 };
 
